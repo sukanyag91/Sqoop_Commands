@@ -1,0 +1,18 @@
+1. Export a table from hive to oracle 
+
+sqoop export
+--connect jdbc:oracle:thin:@//host:port/dnName 
+--username sukanya
+--P
+--table oracleSchema.employee
+--hcatalog-database mydb
+--hatalog-table employee 
+2. Export table only two columns 
+sqoop export
+--connect jdbc:oracle:thin:@//host:port/dnName 
+--username sukanya
+--P
+--table oracleSchema.employee
+--hcatalog-database mydb
+--hatalog-table employee
+--columns 'ID,NAME';
