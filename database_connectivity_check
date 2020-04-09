@@ -1,0 +1,20 @@
+//Oracle db (be it source or target) connectivity check 
+sqoop list-databases --connect jdbc:oracle:thin@//host:port/dbName --username --P
+//SQL server 
+Syntax:
+      sqoop import --connect jdbc:sqlserver://sqlserver-name \
+          --username <username> \
+          --password <password> \
+          --driver   <driver-manager-class> \
+          --table    <table-name> \
+          --target-dir  <target-folder-name>
+
+Sample: 
+      sqoop import --connect "jdbc:sqlserver://labDB;database=demo" \
+           --username sqoop  \
+           --password simp1e \
+           --driver   com.microsoft.sqlserver.jdbc.SQLServerDriver \
+           --table    "dbo.customer" \
+           --target-dir  "/tmp/dbo-customer"
+           
+// check if sqoop can dump data in mongo db as well            
