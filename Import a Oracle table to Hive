@@ -1,0 +1,26 @@
+1. Check database connection to oracle 
+sqoop list-databases --connect jdbc:oracle:thin:@//host:port/DdName --username sukanya --P
+
+2. Create tempory table in hive where the oracle table will be imported as is 
+
+Create external table if not exists mydb.employee(id string , name string,salary string) 
+row format delimited
+fields terminated by '\u0007'
+lines terminated by '\n' 
+stored as ORC
+location 'hdfs://hdpdev/apps/hive/warehouse/mydb.db/employee';
+
+3.Import data into hive 
+
+sqoop import 
+--connect jdbc:oracle:thin@//host:port/DBName
+--username suaknaya 
+--P
+--table oracleSchema.employee
+--num-mappers 1
+--hcatalog-database mydb
+--hcatalog-table employee
+--hcatalog-storage-stanza "stored as orcfile"
+
+4. Check Hive data 
+select * from mydb.employee limit 1; 
