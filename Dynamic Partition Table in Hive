@@ -1,0 +1,25 @@
+1.Create a partition table on the basis of a column data & file date of ingestion 
+1.1. partition table on the basis of column recs 
+
+1.1.1. Create partition table 
+        create table if not exists mydb.employee_part (id string, name string, salary string, annual_ctc string) partition by (year string)
+        row format delimited fields terminated by '\u0007' lines terminated by '\n' stored as orc;
+        
+1.1.2. Set dynamic partition to true 
+       set hive.exec.dynamic.partition=true;
+       set hive.exec.dynamic.partition.mode=nonstrict;
+1.1.3. Insert data from hive raw table to partition table 
+        _ctc
+        insert into table mydb.employee_part partition (year) select id,name,salary,annual_ctc,year from mydb.employee; 
+1.1.4. Check the partitions 
+       show partitions mudb.employee_part;
+1.2. Partition column based on file date 
+1.2.1. Create a partition table 
+      create table if not exists mydb.employee_part (id string, name string, salary string, annual_ctc string,year string) 
+      partition by (partitioin_key string)
+      row format delimited fields terminated by '\u0007' lines terminated by '\n' stored as orc;
+1.2.2. Insert data into partition table 
+
+      insert overwrite table mydb.employee_part partition(partition_key) select *,year from mydb.employee; 
+ 2. Delete a partition 
+ alter table mydb.employee_part drop partition (partition_key="2019");
